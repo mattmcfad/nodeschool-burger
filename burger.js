@@ -1,9 +1,13 @@
-fs = require('fs');
-var input = process.argv[2];
-var burgerFile = 'burgerjoints'; 
+
+var input = process.argv[2]; 
 command(input);
 
 var app = {
+
+	"burgerFile": 'burgerjoints',
+	fs: require('fs'),
+	"filecontents": "===============\nbqm:0\npriest:0\npnl:0",
+
 	//Read in the votes from burgerFile
 	readFile: function(){
 		fs.readFile(burgerFile, 'utf8', function (err,data) {
@@ -40,62 +44,20 @@ var app = {
 
 //SWITCH STATEMENTS
 //Handle command line input
-/*
+
 function command(input){
+	var cmd = app;
 	switch(input){
 		case 'read':
-			readFromFile();
+			var read = cmd.readFile();
 			break;
 		case 'write':
-			var writeToFile = fs.writeFile(burgerFile, process.argv[3], 'utf8', function(err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log("Your vote for " + process.argv[3] + " was cast!");
-				}
-			});
+			writeFile();
 			break;
 		case 'clear':
-			var clearFile = fs.writeFile(burgerFile, " ", 'utf8', function(err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log("Cleared the database!");
-				}
-			});
+			
 			break;
+		default: 
+			console.log("Please enter \"read\" \"write <burgerjoint>\" or \"clear\" ");
 	}
 };
-*/
-
-function command(input) {
-	if (input === "read") {
-		// var readFromFile = fs.readFile(burgerFile, 'utf8', function (err,data) {
-		// 		  if (err) {
-		// 		    return console.log(err);
-		// 		  }
-		// 		 	console.log(data);
-		// 		});	
-		app.readFile();
-		
-	} else if(input === "write") {
-		var writeToFile = fs.writeFile(burgerFile, process.argv[3], 'utf8', function(err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log("Your vote for " + process.argv[3] + " was cast!");
-				}
-		});
-	} else if (input ==="clear") {
-		var clearFile = fs.writeFile(burgerFile, " ", 'utf8', function(err) {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log("Cleared the database!");
-				}
-			});
-	} 
-	else {
-		console.log("Please enter \"read\" \"write <burgerjoint>\" or \"clear\" ");
-	}
-}
