@@ -17,18 +17,36 @@ var app = {
 	}, 
 
 	//analyze file, find voted for burgerjoint, increment vote by 1
-	alterFile: function() {
-		var fileContents = app.readFile();
+	alterFile: function(fileCont) {
+		console.log(fileCont);
+		var fileContents = fileCont;
 		var vote =  process.argv[3];
 
-		
-
 		//analyze file, find the burger joint, increment vote by 1.
-		var str = fileContents.split['\n'];
 		
-		//return fileContents;
+		//seperate each line of the file
+		var str = fileContents.split('\n');
 
-		return vote + ":1";
+		fileContents = "===============\n";
+		//find the line with corresponding burger joint
+		for (var i = 1; i < str.length; i++) {
+			//get the index of the line with vote in fileContents
+			var line = str[i].indexOf(vote);
+			if (line != -1){
+				//get the line;
+				var update = str[i];
+				//get the current total number of votes, convert to number
+				var inc = Number(update.substr(update.indexOf(':')+1));
+				//increment vote count by 1.
+				inc++;
+				//build new line
+				update = vote + ":" + inc;
+				//update vote
+				str[i] = update;
+			}
+			fileContents = fileContents + str[i] + "\n"
+		}
+		return fileContents;
 	},
 		
 	//Write a vote to the file
@@ -62,7 +80,7 @@ function command(input){
 			app.readFile();
 			break;
 		case 'write':
-			app.writeFile(app.alterFile());
+			app.writeFile(app.alterFile(app.readFile()));
 			break;
 		case 'clear':
 			app.clearFile();
