@@ -1,7 +1,4 @@
 
-var input = process.argv[2]; 
-command(input);
-
 var app = {
 
 	"burgerFile": 'burgerjoints',
@@ -10,7 +7,7 @@ var app = {
 
 	//Read in the votes from burgerFile
 	readFile: function(){
-		fs.readFile(burgerFile, 'utf8', function (err,data) {
+		this.fs.readFile(this.burgerFile, 'utf8', function (err,data) {
 		  if (err) {
 		    return console.log(err);
 		  }
@@ -41,6 +38,9 @@ var app = {
 	} 
 };
 
+
+var input = process.argv[2]; 
+command(input);
 
 //SWITCH STATEMENTS
 //Handle command line input
