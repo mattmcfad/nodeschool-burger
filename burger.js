@@ -1,20 +1,25 @@
-fs = require('fs')
-fs.readFile(process.argv[2], 'utf8', function (err,data) {
+fs = require('fs');
+var input = process.argv[2];
+var burgerFile = 'burgerjoints';
+command(input);
+
+
+var readFromFile = fs.readFile(burgerFile, 'utf8', function (err,data) {
   if (err) {
     return console.log(err);
   }
- 	read(data);
+ 	console.log(data);
 });	
 
 
-function read(input){
+function command(input){
 	switch(input){
-		read:
-			 
+		case 'read':
+			readFromFile();
 			break;
-		write:
+		case 'write':
 			break;
-		clear:
+		case 'clear':
 			break;
 	}
 };
